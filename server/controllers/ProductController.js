@@ -94,7 +94,8 @@ class ProductController {
       }
     })
       .then((data) => {
-        if (data) {
+        console.log(data);
+        if (data[0] == 1) {
           res.status(200).json(newProduct);
         } else {
           next({ name: 'PRODUCT_NOT_FOUND'})

@@ -88,21 +88,7 @@ afterAll((done) => {
     .catch((err) => done(err));
 });
 
-describe('POST /product', function() {
-  test('response 201', function(done) {
-    request(app)
-      .post('/product')
-      .set('access_token', userAdmin.access_token)
-      .send(validProduct)
-      .expect('Content-type', /json/)
-      .then((response) => {
-        const {body, status} = response;
-        expect(status).toBe(201);
-        validProduct.id = body.id;
-        done();
-      })
-  })
-
+describe('Authentication', function() {
   test('response 404 token not found', function(done) {
     request(app)
       .post('/product')
@@ -126,6 +112,28 @@ describe('POST /product', function() {
         const {body, status} = response;
         expect(status).toBe(400);
         expect(body).toHaveProperty('message', 'Invalid Token / invalid username, please input correct Token');
+        done();
+      })
+  })
+})
+
+describe('POST /product', function() {
+  test('response 201', function(done) {
+    request(app)
+      .post('/product')
+      .set('access_token', userAdmin.access_token)
+      .send(validProduct)
+      .expect('Content-type', /json/)
+      .then((response) => {
+        const {body, status} = response;
+        expect(status).toBe(201);
+        expect(body).toHaveProperty('id', expect.any(Number));
+        expect(body).toHaveProperty('name', validProduct.name);
+        expect(body).toHaveProperty('image_url', validProduct.image_url);
+        expect(body).toHaveProperty('price', validProduct.price);
+        expect(body).toHaveProperty('stock', validProduct.stock);
+        expect(body).toHaveProperty('category', validProduct.category);
+        validProduct.id = body.id;
         done();
       })
   })
@@ -196,31 +204,7 @@ describe('GET /product', function() {
       .then((response) => {
         const {body, status} = response;
         expect(status).toBe(200);
-        done();
-      })
-  })
-
-  test('response 400 token not found', function(done) {
-    request(app)
-      .get('/product')
-      .expect('Content-type', /json/)
-      .then((response) => {
-        const {body, status} = response;
-        expect(status).toBe(400);
-        expect(body).toHaveProperty('message', 'Token Not Found');
-        done();
-      })
-  })
-
-  test('response 400 invalid token', function(done) {
-    request(app)
-      .get('/product')
-      .set('access_token', 'tokensalah')
-      .expect('Content-type', /json/)
-      .then((response) => {
-        const {body, status} = response;
-        expect(status).toBe(400);
-        expect(body).toHaveProperty('message', 'Invalid Token / invalid username, please input correct Token');
+        expect(Array.isArray(body)).toBe(true);
         done();
       })
   })
@@ -235,6 +219,12 @@ describe('GET /product/:id', function() {
       .then((response) => {
         const {body, status} = response;
         expect(status).toBe(200);
+        expect(body).toHaveProperty('id', validProduct.id);
+        expect(body).toHaveProperty('name', validProduct.name);
+        expect(body).toHaveProperty('image_url', validProduct.image_url);
+        expect(body).toHaveProperty('price', validProduct.price);
+        expect(body).toHaveProperty('stock', validProduct.stock);
+        expect(body).toHaveProperty('category', validProduct.category);
         done();
       })
   })
@@ -247,6 +237,7 @@ describe('GET /product/:id', function() {
       .then((response) => {
         const {body, status} = response;
         expect(status).toBe(404);
+        expect(body).toHaveProperty('message', 'Product Not Found, invalid parameter id');
         done();
       })
   })
@@ -262,23 +253,28 @@ describe('PUT /product/:id', function() {
       .then((response) => {
         const {body, status} = response;
         expect(status).toBe(200);
+        expect(body).toHaveProperty('name', editProduct.name);
+        expect(body).toHaveProperty('image_url', editProduct.image_url);
+        expect(body).toHaveProperty('price', editProduct.price);
+        expect(body).toHaveProperty('stock', editProduct.stock);
+        expect(body).toHaveProperty('category', editProduct.category);
         done();
       })
   })
 
-  // test('response 404 id product not found', function(done) {
-  //   request(app)
-  //     .put('/product/100000')
-  //     .set('access_token', userAdmin.access_token)
-  //     .expect('Content-type', /json/)
-  //     .send(editProduct)
-  //     .then((response) => {
-  //       const {body, status} = response;
-  //       expect(status).toBe(404);
-  //       expect(body).toHaveProperty('message', 'Product Not Found, invalid parameter id');
-  //       done();
-  //     })
-  // })
+  test('response 404 id product not found', function(done) {
+    request(app)
+      .put('/product/100000')
+      .set('access_token', userAdmin.access_token)
+      .expect('Content-type', /json/)
+      .send(editProduct)
+      .then((response) => {
+        const {body, status} = response;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty('message', 'Product Not Found, invalid parameter id');
+        done();
+      })
+  })
 })
 
 describe('Delete /product/:id', function() {
