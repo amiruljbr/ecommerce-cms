@@ -14,7 +14,7 @@ app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    console.log(`App run on http://localhost:${PORT}`);
+    console.log(`App run on Port: ${PORT}`);
   });
 }
 
