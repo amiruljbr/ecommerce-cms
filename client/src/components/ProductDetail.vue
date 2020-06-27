@@ -116,7 +116,7 @@ export default {
       console.log('proses Delete product');
       this.$store.dispatch('deleteProduct', this.product.id);
       this.showDelete = false;
-      this.$router.push('/');
+      this.$router.push('/product');
     },
   },
 };

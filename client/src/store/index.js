@@ -6,7 +6,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false,
     products: [],
     productDetail: null,
   },
@@ -14,25 +13,15 @@ export default new Vuex.Store({
     SET_PRODUCT(state, payload) {
       state.products = payload;
     },
-    SET_ISLOGGEDIN(state, payload) {
-      state.isLoggedIn = payload;
-    },
     SET_DETAIL(state, payload) {
       state.productDetail = payload;
     },
   },
   actions: {
-    checkLoggedIn({ commit }) {
-      if (localStorage.length > 0) {
-        commit('SET_ISLOGGEDIN', true);
-      } else {
-        commit('SET_ISLOGGEDIN', false);
-      }
-    },
     getProducts({ commit }) {
       Axios({
         method: 'GET',
-        url: 'http://localhost:3000/product',
+        url: 'https://baj-e-commerce-cms.herokuapp.com/product',
         headers: {
           access_token: localStorage.access_token,
         },
@@ -47,7 +36,7 @@ export default new Vuex.Store({
     createProduct(context, payload) {
       Axios({
         method: 'POST',
-        url: 'http://localhost:3000/product',
+        url: 'https://baj-e-commerce-cms.herokuapp.com/product',
         headers: {
           access_token: localStorage.access_token,
         },
@@ -64,7 +53,7 @@ export default new Vuex.Store({
     deleteProduct(context, productId) {
       Axios({
         method: 'DELETE',
-        url: `http://localhost:3000/product/${productId}`,
+        url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
         headers: {
           access_token: localStorage.access_token,
         },
@@ -81,7 +70,7 @@ export default new Vuex.Store({
       const { productId, product } = payload;
       Axios({
         method: 'PUT',
-        url: `http://localhost:3000/product/${productId}`,
+        url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
         headers: {
           access_token: localStorage.access_token,
         },
@@ -99,7 +88,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios({
           method: 'GET',
-          url: `http://localhost:3000/product/${productId}`,
+          url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
           headers: {
             access_token: localStorage.access_token,
           },

@@ -1,5 +1,6 @@
 <template>
   <section>
+    <Navbar></Navbar>
     <div class="container">
       <h4>List Product</h4>
       <button type="button" class="col m-1 btn btn-primary" @click="showModal = !showModal">
@@ -42,6 +43,7 @@
 
 <script>
 import TableProduct from '../components/TableProduct.vue';
+import Navbar from '../components/Navbar.vue';
 // @ is an alias to /src
 export default {
   name: 'Home',
@@ -74,7 +76,7 @@ export default {
     },
   },
   components: {
-    TableProduct,
+    TableProduct, Navbar,
   },
 };
 </script>

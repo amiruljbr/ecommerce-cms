@@ -2,7 +2,7 @@
   <table class="table table-hover table-bordered">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Image</th>
         <th scope="col">Price</th>

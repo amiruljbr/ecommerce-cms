@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     toDetail() {
-      this.$router.push(`/product/${this.product.id}`);
+      this.$router.push({ path: `/product/${this.product.id}` });
     },
   },
 };

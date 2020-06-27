@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '/product',
     name: 'Home',
     component: Home,
   },
@@ -19,7 +19,7 @@ const routes = [
     component: DetailProduct,
   },
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: Login,
   },
@@ -34,6 +34,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((route, from, next) => {
+  const path = ['Login', 'NotFound'];
+  if (!path.includes(route.name) && !localStorage.access_token) {
+    next({ name: 'Login' });
+  } else {
+    next();
+  }
 });
 
 export default router;

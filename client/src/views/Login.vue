@@ -39,7 +39,7 @@ export default {
       console.log(this.loginPassword);
       Axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: 'https://baj-e-commerce-cms.herokuapp.com/login',
         data: {
           email: this.loginEmail,
           password: this.loginPassword,
@@ -47,7 +47,8 @@ export default {
       })
         .then((response) => {
           console.log(response.data);
-          localStorage.setItem('access_token', response.data);
+          localStorage.setItem('access_token', response.data.access_token);
+          this.$router.push('/product');
         })
         .catch((err) => {
           console.log(err);
