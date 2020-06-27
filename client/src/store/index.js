@@ -53,7 +53,7 @@ export default new Vuex.Store({
     deleteProduct(context, productId) {
       Axios({
         method: 'DELETE',
-        url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
+        url: `https://baj-e-commerce-cms.herokuapp.com/product/${productId}`,
         headers: {
           access_token: localStorage.access_token,
         },
@@ -70,7 +70,7 @@ export default new Vuex.Store({
       const { productId, product } = payload;
       Axios({
         method: 'PUT',
-        url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
+        url: `https://baj-e-commerce-cms.herokuapp.com/product/${productId}`,
         headers: {
           access_token: localStorage.access_token,
         },
@@ -88,7 +88,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         Axios({
           method: 'GET',
-          url: `https://baj-e-commerce-cms.herokuapp.com/${productId}`,
+          url: `https://baj-e-commerce-cms.herokuapp.com/product/${productId}`,
           headers: {
             access_token: localStorage.access_token,
           },
