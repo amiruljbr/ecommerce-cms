@@ -1,36 +1,83 @@
 <template>
-  <div class="container">
-    <h4>List Product</h4>
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Image</th>
-          <th scope="col">Price</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Category</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Baju</td>
-          <td>Gambar1</td>
-          <td>Rp. 50,000,-</td>
-          <td>50 item</td>
-          <td>Fasion  </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <section>
+    <div class="container">
+      <h4>List Product</h4>
+      <button type="button" class="col m-1 btn btn-primary" @click="showModal = !showModal">
+        Add Product
+      </button>
+      <TableProduct></TableProduct>
+    </div>
+    <div v-if="showModal" class="loadingModal">
+      <div class="theModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+              <button type="button" class="close" @click="showModal = !showModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form  @submit.prevent="submitAddProduct" class="form-register" >
+                <br>
+                <input v-model="inputName" type="text" class="form-control" placeholder="Input Name" required="" autofocus="">
+                <br>
+                <input v-model="inputImage" type="text" class="form-control" placeholder="Input Image Url" required="" autofocus="">
+                <br>
+                <input v-model="inputPrice" type="number" class="form-control" placeholder="Input Price" required="" autofocus="">
+                <br>
+                <input v-model="inputStock" type="number" class="form-control" placeholder="Input Stock" required="" autofocus="">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="showModal = !showModal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import TableProduct from '../components/TableProduct.vue';
 // @ is an alias to /src
 export default {
   name: 'Home',
+  data() {
+    return {
+      showModal: false,
+      inputName: null,
+      inputImage: null,
+      inputPrice: null,
+      inputStock: null,
+    };
+  },
+  computed: {
+  },
+  methods: {
+    submitAddProduct() {
+      console.log('proses add product');
+      const payload = {
+        name: this.inputName,
+        image_url: this.inputImage,
+        price: this.inputPrice,
+        stock: this.inputStock,
+      };
+      this.$store.dispatch('createProduct', payload);
+      this.showModal = false;
+      this.inputName = null;
+      this.inputImage = null;
+      this.inputPrice = null;
+      this.inputStock = null;
+    },
+  },
   components: {
+    TableProduct,
   },
 };
 </script>
+
+<style>
+</style>
