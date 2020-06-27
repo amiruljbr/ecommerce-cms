@@ -6,9 +6,9 @@
           <img class="mb-4" src="https://2.bp.blogspot.com/-2TZJ3M9sSx4/Vs7gZnFNwgI/AAAAAAAABUM/v3R88LMR0Zc/s1600/login.png" alt="" width="100" height="72">
           <h6 class="h3 mb-3 font-weight-normal">Please sign in</h6>
           <label for="inputEmail" class="sr-only">Username / Email address</label>
-          <input v-model="loginEmail" type="username" id="inputLoginEmail" class="form-control">
+          <input v-model="loginEmail" placeholder="Input Email" type="username" id="inputLoginEmail" class="form-control">
           <label for="inputPassword" class="sr-only">Password</label>
-          <input v-model="loginPassword" type="password" class="form-control">
+          <input v-model="loginPassword" placeholder="Input Password" type="password" class="form-control">
           <div class="checkbox mb-3">
             <label>
               <input type="checkbox" value="remember-me"> Remember me
@@ -34,9 +34,6 @@ export default {
   },
   methods: {
     submitLogin() {
-      console.log('proses login');
-      console.log(this.loginEmail);
-      console.log(this.loginPassword);
       Axios({
         method: 'POST',
         url: 'https://baj-e-commerce-cms.herokuapp.com/login',
