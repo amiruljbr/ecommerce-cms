@@ -10,6 +10,6 @@ router.get('/',(req,res)=>{
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.use(authentication)
-router.use('/product', productRoute);
+router.use('/products', productRoute);
 
 module.exports = router;

@@ -75,7 +75,7 @@ _Response (400 - Bad request)_
 ```
 ---
 
-## GET /product
+## GET /products
 > Show All Product
 _Request Header_
 ```
@@ -104,7 +104,7 @@ _Response (200)_
 ]
 ```
 ---
-## POST /product
+## POST /products
 > Create Product
 _Request Header_
 ```
@@ -135,7 +135,7 @@ _Response (201)_
 
 ```
 ---
-## DELETE /product/:id
+## DELETE /products/:id
 > Delete product
 ---
 
@@ -164,7 +164,7 @@ _Response (400 - Bad request)_
 
 ```
 ---
-## GET /product/:id
+## GET /products/:id
 > Get data from selected id
 
 
@@ -192,7 +192,7 @@ _Response (200)_
 
 ```
 ---
-## PUT /product/:id
+## PUT /products/:id
 > To submit Form Edit product
 
 
